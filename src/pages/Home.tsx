@@ -13,7 +13,7 @@ const Home: React.FC = () => {
         <IonSearchbar color="medium" showClearButton='always' placeholder='Rechercher un métier'></IonSearchbar>
 
 
-        <IonCard color="medium">
+        <IonCard color="medium" href="/poste">
           <IonCardHeader>
             <IonCardTitle>Développement NodeJS</IonCardTitle>
           </IonCardHeader>
