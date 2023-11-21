@@ -22,6 +22,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Connexion from './pages/Connexion';
 
 setupIonicReact();
 
@@ -34,6 +35,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/poste">
           <DetailsPoste />
+        </Route>
+        <Route exact path="/connexion">
+          <Connexion />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />

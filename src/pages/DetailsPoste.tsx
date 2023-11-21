@@ -1,4 +1,4 @@
-import { IonText, IonPage, IonHeader, IonToolbar, IonButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent } from "@ionic/react"
+import { IonText, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons } from "@ionic/react"
 import './DetailsPoste.css'
 
 const DetailsPoste: React.FC = () => {
@@ -6,10 +6,14 @@ const DetailsPoste: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                <IonTitle>RecrutementIC</IonTitle>
+                    <IonText>RecrutementIC</IonText>
+                    <IonButtons slot="end">
+                        <IonButton href="/connexion">Connexion</IonButton>
+                    </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
+                <IonButton href="/home">Retour</IonButton>
                 <IonTitle><h1>Développement NodeJS</h1></IonTitle>
 
                 <IonText><p>Paris (75)</p></IonText>

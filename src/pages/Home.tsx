@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonSearchbar, IonIcon } from '@ionic/react';
+import { IonContent, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonSearchbar } from '@ionic/react';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -6,12 +6,14 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>RecrutementIC</IonTitle>
+          <IonText>RecrutementIC</IonText>
+            <IonButtons slot="end">
+              <IonButton href="/connexion">Connexion</IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonSearchbar color="medium" showClearButton='always' placeholder='Rechercher un métier'></IonSearchbar>
-
 
         <IonCard color="medium" href="/poste">
           <IonCardHeader>
