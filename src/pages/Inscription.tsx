@@ -1,21 +1,17 @@
 import { IonPage, IonHeader, IonToolbar, IonText, IonButtons, IonButton, IonContent, IonCard, IonCardHeader, IonTitle, IonCardContent, IonInput } from "@ionic/react"
+import EnteteContainer from "../components/EnteteContainer"
 import "./Inscription.css"
 
 const Inscription: React.FC = () => {
     return(
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <IonText>RecrutementIC</IonText>
-                    <IonButtons slot="end">
-                        <IonButton href="/connexion">Connexion</IonButton>
-                    </IonButtons>
-                </IonToolbar>
+                <EnteteContainer />
             </IonHeader>
             <IonContent fullscreen>
                 <IonCard>
                     <IonCardHeader>
-                        <IonTitle><h3>Connexion</h3></IonTitle>
+                        <IonTitle><h3>Inscription</h3></IonTitle>
                     </IonCardHeader>
                     <IonCardContent>
                         <IonInput type="text" fill="solid" label="Nom" labelPlacement="floating"></IonInput>

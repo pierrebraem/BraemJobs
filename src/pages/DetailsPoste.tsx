@@ -1,16 +1,12 @@
 import { IonText, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons } from "@ionic/react"
+import EnteteContainer from "../components/EnteteContainer"
 import './DetailsPoste.css'
 
 const DetailsPoste: React.FC = () => {
     return(
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <IonText>RecrutementIC</IonText>
-                    <IonButtons slot="end">
-                        <IonButton href="/connexion">Connexion</IonButton>
-                    </IonButtons>
-                </IonToolbar>
+                <EnteteContainer />
             </IonHeader>
             <IonContent fullscreen>
                 <IonButton href="/home">Retour</IonButton>

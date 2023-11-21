@@ -1,16 +1,12 @@
 import { IonContent, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonSearchbar } from '@ionic/react';
+import EnteteContainer from "../components/EnteteContainer"
 import './Home.css';
 
 const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonText>RecrutementIC</IonText>
-            <IonButtons slot="end">
-              <IonButton href="/connexion">Connexion</IonButton>
-          </IonButtons>
-        </IonToolbar>
+        <EnteteContainer />
       </IonHeader>
       <IonContent fullscreen>
         <IonSearchbar color="medium" showClearButton='always' placeholder='Rechercher un métier'></IonSearchbar>
