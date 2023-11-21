@@ -1,0 +1,7 @@
+{
+  "name": "recrutementIonicCapacitor",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
