@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import DetailsPoste from './pages/DetailsPoste';
 import Connexion from './pages/Connexion';
 import Inscription from './pages/Inscription';
+import Profil from './pages/Profil';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,6 +43,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/inscription">
           <Inscription />
+        </Route>
+        <Route exact path="/profil">
+          <Profil />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
