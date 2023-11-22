@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { collection, getFirestore, query, where, getDocs, addDoc } from 'firebase/firestore'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 
 const config = {
     apiKey: "AIzaSyCNQpjRKQdtDKKCIwNPv57TlgmPy3BxT8s",
@@ -15,9 +16,13 @@ const config = {
 const app = initializeApp(config)
 const analytics = getAnalytics(app)
 
+const auth = getAuth()
+
 const db = getFirestore()
 
 const userRef = collection(db, 'utilisateurs')
+
+/* Fonctions locales */
 
 async function checkIfEmailAlreadyExist(email: string){
     const q = query(userRef, where("email", "==", email))
@@ -33,6 +38,8 @@ async function checkIfEmailAlreadyExist(email: string){
 
     return result
 }
+
+/* Fonctions connexion */
 
 export async function signup(nom: string, prenom: string, email: string, telephone: string, motdepasse: string, motdepasseC: string){
     try{
@@ -58,6 +65,8 @@ export async function signup(nom: string, prenom: string, email: string, telepho
             recruteur: false
         })
 
+        await createUserWithEmailAndPassword(auth, email, motdepasse)
+
         return true
     }
     catch(error){
@@ -69,12 +78,13 @@ export async function login(email: string, motdepasse: string){
     try{
         const q = query(userRef, where('email', '==', email), where('motdepasse', '==', motdepasse))
         let result: boolean = false
-        await getDocs(q).then((snapshot) => {
+        await getDocs(q).then(async (snapshot) => {
             if(snapshot.docs.length == 0){
                 result = false
             }
             else{
                 result = true
+                await signInWithEmailAndPassword(auth, email, motdepasse)
             }
         })
 

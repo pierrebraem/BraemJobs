@@ -15,7 +15,7 @@ const Inscription: React.FC = () => {
     async function inscription(){
         const res = await signup(nom, prenom, email, telephone, motdepasse, motdepasseC)
         if(res){
-            location.replace('./connexion')
+            location.replace('/')
         }
     }
 
