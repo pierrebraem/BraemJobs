@@ -1,6 +1,7 @@
-import { IonToolbar, IonText, IonButton, IonButtons } from '@ionic/react'
+import { IonToolbar, IonText, IonButton, IonButtons, IonAlert } from '@ionic/react'
 import { getAuth, signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
+import { addJob } from '../firebase'
 import './EnteteContainer.css'
 
 interface ContainerProps { }
@@ -10,11 +11,12 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
 
     const [connexion, setConnexion] = useState(false)
 
-    useEffect(() => {
+    /* useEffect(() => {
         auth.onAuthStateChanged((user) => {
+            console.log(user)
             user ? setConnexion(true) : setConnexion(false)
         })
-    })
+    }) */
 
     function deconnection(){
         signOut(auth)
@@ -25,8 +27,48 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
         <IonToolbar>
             <IonText>RecrutementIC</IonText>
             <IonButtons slot="end">
+                <IonButton id="Aannonce">Ajouter une annonce</IonButton>
                 { connexion ? <IonButton onClick={deconnection}>Deconnection</IonButton> : <IonButton href="/connexion">Connexion</IonButton> }
             </IonButtons>
+
+            <IonAlert
+            trigger='Aannonce'
+            header='Ajouter une annonce'
+            inputs={[
+                {
+                    placeholder: 'Intitulé du poste',
+                    name: 'intitule'
+                },
+                {
+                    placeholder: 'Entreprise',
+                    name: 'entreprise'
+                },
+                {
+                    placeholder: 'Lieu',
+                    name: 'lieu'
+                },
+                {
+                    placeholder: 'Compétences',
+                    name: 'competences'
+                },
+                {
+                    placeholder: 'Description',
+                    name: 'description'
+                },
+                {
+                    placeholder: 'Profil',
+                    name: 'profil'
+                }
+            ]}
+            buttons={[
+                {
+                    text: 'Ajouter',
+                    handler: (data) => {
+                        addJob(data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
+                    }
+                },
+            ]}
+            ></IonAlert>
         </IonToolbar>
     )
 }

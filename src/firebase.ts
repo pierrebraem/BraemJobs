@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { collection, getFirestore, query, where, getDocs, addDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 
 const config = {
@@ -21,6 +21,7 @@ const auth = getAuth()
 const db = getFirestore()
 
 const userRef = collection(db, 'utilisateurs')
+const jobRef = collection(db, 'emplois')
 
 /* Fonctions locales */
 
@@ -97,4 +98,50 @@ export async function login(email: string, motdepasse: string){
     catch(error){
         console.log(error)
     }
+}
+
+/* Fonctions offres */
+
+export async function getJobById(id: string){
+    const docRef = doc(db, 'emplois', id)
+    const docSnap = await getDoc(docRef)
+    return docSnap.data()
+}
+
+export async function addJob(intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
+    const competencesArray = competences.split(', ')
+    
+    addDoc(jobRef, {
+        intitule: intitule,
+        entreprise: entreprise,
+        lieu: lieu,
+        competences: competencesArray,
+        description: description,
+        profil: profil,
+        candidats: null,
+        recruteur: 'aJ6hJbDmERbAPxUtT2Ca'
+    })
+}
+
+export async function updateJob(id: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
+    const job = doc(db, 'emplois', id)
+
+    const competencesArray = competences.split(', ')
+
+    await updateDoc(job, {
+        intitule: intitule,
+        entreprise: entreprise,
+        lieu: lieu,
+        competences: competencesArray,
+        description: description,
+        profil: profil,
+        candidats: null,
+        recruteur: 'aJ6hJbDmERbAPxUtT2Ca'
+    })
+}
+
+export async function deleteJob(id: string){
+    const job = doc(db, 'emplois', id)
+
+    await deleteDoc(job)
 }
