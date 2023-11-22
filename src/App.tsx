@@ -3,6 +3,7 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import DetailsPoste from './pages/DetailsPoste';
+import AjouterPoste from './pages/AjouterPoste';
 import Connexion from './pages/Connexion';
 import Inscription from './pages/Inscription';
 import Profil from './pages/Profil';
@@ -37,6 +38,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/poste">
           <DetailsPoste />
+        </Route>
+        <Route exact path="/ajouterPoste">
+          <AjouterPoste />
         </Route>
         <Route exact path="/connexion">
           <Connexion />
