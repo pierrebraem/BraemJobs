@@ -54,7 +54,8 @@ export async function signup(nom: string, prenom: string, email: string, telepho
             hardskill: null,
             softskill: null,
             experience: null,
-            formation: null
+            formation: null,
+            recruteur: false
         })
 
         return true
