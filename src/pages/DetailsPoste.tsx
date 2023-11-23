@@ -10,7 +10,8 @@ const DetailsPoste: React.FC = () => {
     const [lieu, setLieu] = useState('')
     const [competences, setCompetences] = useState('')
     const [description, setDescription] = useState('')
-    const [profil, setProfil] = useState('') 
+    const [profil, setProfil] = useState('')
+    const [isOwner, setOwner] = useState(false) 
 
     getJobById('sdD7V4CjvKKMrEM6vV8T').then((job: any) => {
         setIntitule(job.intitule)
@@ -21,6 +22,15 @@ const DetailsPoste: React.FC = () => {
 
         const competences: string = job.competences.join(', ')
         setCompetences(competences)
+
+        document.cookie.split(';').map((cookie) => {
+            const valeur = cookie.split('=')
+            if(valeur[0].includes('userid')){
+                if(valeur[1].includes(job.recruteur)){
+                    setOwner(true)
+                }
+            }
+        })
     })
 
     return(
@@ -31,8 +41,8 @@ const DetailsPoste: React.FC = () => {
             <IonContent fullscreen>
                 <IonButtons>
                     <IonButton href="/home">Retour</IonButton>
-                    <IonButton id="Mannonce">Modifier l'offre</IonButton>
-                    <IonButton id="Sannonce">Supprimer l'offre</IonButton>
+                    { isOwner ? <IonButton id="Mannonce">Modifier l'offre</IonButton> : <></>}
+                    { isOwner ? <IonButton id="Sannonce">Supprimer l'offre</IonButton> : <></>}
                 </IonButtons>
                 
                 <IonTitle><h1>{intitule}</h1></IonTitle>
@@ -57,7 +67,7 @@ const DetailsPoste: React.FC = () => {
                     </IonCardContent>
                 </IonCard>
 
-                <IonAlert
+                {isOwner ? <IonAlert
                 trigger='Mannonce'
                 header='Modifier une annonce'
                 inputs={[
@@ -94,9 +104,9 @@ const DetailsPoste: React.FC = () => {
                         }
                     },
                 ]}
-                ></IonAlert>
+                ></IonAlert> : <></>}
 
-                <IonAlert
+                {isOwner ? <IonAlert
                 trigger='Sannonce'
                 header='Voulez-vous vraiment supprimer loffre?'
                 buttons={[
@@ -107,7 +117,7 @@ const DetailsPoste: React.FC = () => {
                         }
                     }
                 ]}
-                ></IonAlert>
+                ></IonAlert> : <></>}
             </IonContent>
         </IonPage>
     )
