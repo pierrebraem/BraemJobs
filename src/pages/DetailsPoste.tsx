@@ -7,8 +7,11 @@ import { AppLauncher } from '@capacitor/app-launcher'
 import { Device } from '@capacitor/device'
 import './DetailsPoste.css'
 import { useState } from "react"
+import { useParams } from "react-router"
 
 const DetailsPoste: React.FC = () => {
+    const jobid: any = useParams()
+
     const [intitule, setIntitule] = useState('')
     const [entreprise, setEntreprise] = useState('')
     const [lieu, setLieu] = useState('')
@@ -19,7 +22,7 @@ const DetailsPoste: React.FC = () => {
     const [isOwner, setOwner] = useState(false) 
     const [userid, setUserId] = useState('')
 
-    getJobById('sNww2S3zPmHeccpUeUKy').then((job: any) => {
+    getJobById(jobid.id).then((job: any) => {
         setIntitule(job.intitule)
         setEntreprise(job.entreprise)
         setLieu(job.lieu)
@@ -40,6 +43,8 @@ const DetailsPoste: React.FC = () => {
         })
     })
 
+    console.log(jobid.id)
+
     async function lireAnnonce(){
         ScreenReader.speak({ value: intitule + ' sur ' + lieu + ' dans l\'entreprise' + entreprise + '.'
         + 'Les compétences pour ce poste sont : ' + competences + '.'
@@ -56,7 +61,7 @@ const DetailsPoste: React.FC = () => {
         })
 
         if(res){
-            deleteJob('sdD7V4CjvKKMrEM6vV8T')
+            deleteJob(jobid.id)
         }
     }
 
@@ -164,7 +169,7 @@ const DetailsPoste: React.FC = () => {
                     {
                         text: 'Modifier',
                         handler: (data) => {
-                            updateJob('sNww2S3zPmHeccpUeUKy', userid, data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
+                            updateJob(jobid.id, userid, data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
                         }
                     },
                 ]}
