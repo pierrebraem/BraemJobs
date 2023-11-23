@@ -7,4 +7,4 @@ Les technologies frontend sont Ionic React et Capacitor. En ce qui concerne le b
 La version 0.1 représente la réalisation du projet sur une semaine. Les versions 0.2 et les suivantes seront élaborées ultérieurement, car j'ai envie d'améliorer cette application et de progresser dans les technologies utilisées dans ce projet.
 
 ## Liens
-[](./docs/DeploiementFirebase.md "Comment déployer l'application sur Firebase")
+[Comment déployer l'application sur Firebase](./docs/DeploiementFirebase.md)
