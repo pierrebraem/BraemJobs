@@ -67,6 +67,16 @@ export async function signup(nom: string, prenom: string, email: string, lieu: n
             experiences: null,
             formations: null,
             recruteur: false
+        }).then(async (userAdded) => {
+            await CapacitorCookies.setCookie({
+                key: 'userid',
+                value: userAdded.id
+            })
+
+            await CapacitorCookies.setCookie({
+                key: 'recruteur',
+                value: 'false'
+            })
         })
 
         await createUserWithEmailAndPassword(auth, email, motdepasse)
@@ -124,10 +134,15 @@ export function logout(){
 
 /* Fonctions offres */
 
+export async function getJobs(){
+    const res = await getDocs(jobRef)
+    return res.docs
+}
+
 export async function getJobById(id: string){
-    const jobRef = doc(db, 'emplois', id)
-    const jobSnap = await getDoc(jobRef)
-    return jobSnap.data()
+    const job = doc(db, 'emplois', id)
+    const res = await getDoc(job)
+    return res.data()
 }
 
 export async function addJob(userid: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){

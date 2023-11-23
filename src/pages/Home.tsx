@@ -1,8 +1,22 @@
 import { IonContent, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonSearchbar } from '@ionic/react';
 import EnteteContainer from "../components/EnteteContainer"
 import './Home.css';
+import { getJobs } from '../firebase';
+import { useState } from "react"
 
 const Home: React.FC = () => {
+
+  /* const test = getJobs().then((res) => {
+    let jobsRes: any[] = []
+    res.map((job) => {
+      jobsRes.push({id: job.id, ...job.data()})
+    })
+
+    return jobsRes
+  })
+
+  console.log(test) */
+
   return (
     <IonPage>
       <IonHeader>
