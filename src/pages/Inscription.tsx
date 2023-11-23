@@ -18,8 +18,7 @@ const Inscription: React.FC = () => {
     async function inscription(){
         const res = await signup(nom, prenom, email, lieu, telephone, motdepasse, motdepasseC)
         if(res){
-            console.log(document.cookie)
-            //location.replace('/')
+            location.replace('/')
         }
     }
 
