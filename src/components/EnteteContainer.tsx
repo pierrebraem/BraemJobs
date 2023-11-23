@@ -44,7 +44,7 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
             <IonText>RecrutementIC</IonText>
             <IonButtons slot="end">
                 { isRecruteur ? <IonButton id="Aannonce">{ lang === 'en' ? 'Add ad job' : 'Ajouter une annonce'}</IonButton> : <></>}
-                { isLogged ? <IonButton href="/profil">{lang === 'en' ? 'Profile' : 'Profil'}</IonButton> : <></>}
+                { isLogged ? <IonButton href={"profil/" + userid}>{lang === 'en' ? 'Profile' : 'Profil'}</IonButton> : <></>}
                 { isLogged ? <IonButton onClick={deconnection}>{ lang === 'en' ? 'Logout' : 'Déconnexion'}</IonButton> : <IonButton href="/connexion">{ lang === 'en' ? 'Login' : 'Connexion'}</IonButton> }
             </IonButtons>
 

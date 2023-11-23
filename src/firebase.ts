@@ -60,11 +60,12 @@ export async function signup(nom: string, prenom: string, email: string, lieu: n
             lieu: new GeoPoint(lieu[0], lieu[1]),
             telephone: telephone,
             motdepasse: motdepasse,
+            description: null,
             image: null,
-            hardskill: null,
-            softskill: null,
-            experience: null,
-            formation: null,
+            hardskills: null,
+            softskills: null,
+            experiences: null,
+            formations: null,
             recruteur: false
         })
 
@@ -124,9 +125,9 @@ export function logout(){
 /* Fonctions offres */
 
 export async function getJobById(id: string){
-    const docRef = doc(db, 'emplois', id)
-    const docSnap = await getDoc(docRef)
-    return docSnap.data()
+    const jobRef = doc(db, 'emplois', id)
+    const jobSnap = await getDoc(jobRef)
+    return jobSnap.data()
 }
 
 export async function addJob(userid: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
@@ -165,4 +166,12 @@ export async function deleteJob(id: string){
     const job = doc(db, 'emplois', id)
 
     await deleteDoc(job)
+}
+
+/* Fonctions utilisateurs */
+
+export async function getUserById(id: string){
+    const userRef = doc(db, 'utilisateurs', id)
+    const userSnap = await getDoc(userRef)
+    return userSnap.data()
 }

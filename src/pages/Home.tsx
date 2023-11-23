@@ -13,19 +13,19 @@ const Home: React.FC = () => {
 
         <IonCard color="medium" href="/poste/sNww2S3zPmHeccpUeUKy">
           <IonCardHeader>
-            <IonCardTitle>Développement NodeJS</IonCardTitle>
+            <IonCardTitle>Développement NodeJS (junior)</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <IonText>CGI - Paris (75)</IonText>
+            <IonText>BraemComputing - Lille</IonText>
           </IonCardContent>
         </IonCard>
 
         <IonCard color="medium" href="/poste/Av1uxeEr4nvtM5mQhJ3a">
           <IonCardHeader>
-            <IonCardTitle>Développement Java (Sénior)</IonCardTitle>
+            <IonCardTitle>Développement Typescript</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <IonText>WorldWide - Calais (62)</IonText>
+            <IonText>Braem Computing - Lille</IonText>
           </IonCardContent>
         </IonCard>
 
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
             <IonCardTitle>Développement Ionic Capacitor (Junior)</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <IonText>WorldWide - Lille (59)</IonText>
+            <IonText>UneEntreprise - Lille (59)</IonText>
           </IonCardContent>
         </IonCard>
       </IonContent>
