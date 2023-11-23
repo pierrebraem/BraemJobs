@@ -35,7 +35,7 @@ const App: React.FC = () => (
         <Route exact path="/home">
           <Home />
         </Route>
-        <Route exact path="/poste">
+        <Route exact path="/poste/:id">
           <DetailsPoste />
         </Route>
         <Route exact path="/connexion">
@@ -44,7 +44,7 @@ const App: React.FC = () => (
         <Route exact path="/inscription">
           <Inscription />
         </Route>
-        <Route exact path="/profil">
+        <Route exact path="/profil/:id">
           <Profil />
         </Route>
         <Route exact path="/">

@@ -1,8 +1,22 @@
 import { IonContent, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonSearchbar } from '@ionic/react';
 import EnteteContainer from "../components/EnteteContainer"
 import './Home.css';
+import { getJobs } from '../firebase';
+import { useState } from "react"
 
 const Home: React.FC = () => {
+
+  /* const test = getJobs().then((res) => {
+    let jobsRes: any[] = []
+    res.map((job) => {
+      jobsRes.push({id: job.id, ...job.data()})
+    })
+
+    return jobsRes
+  })
+
+  console.log(test) */
+
   return (
     <IonPage>
       <IonHeader>
@@ -11,21 +25,21 @@ const Home: React.FC = () => {
       <IonContent fullscreen>
         <IonSearchbar color="medium" showClearButton='always' placeholder='Rechercher un métier'></IonSearchbar>
 
-        <IonCard color="medium" href="/poste">
+        <IonCard color="medium" href="/poste/sNww2S3zPmHeccpUeUKy">
           <IonCardHeader>
-            <IonCardTitle>Développement NodeJS</IonCardTitle>
+            <IonCardTitle>Développement NodeJS (junior)</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <IonText>CGI - Paris (75)</IonText>
+            <IonText>BraemComputing - Lille</IonText>
           </IonCardContent>
         </IonCard>
 
-        <IonCard color="medium">
+        <IonCard color="medium" href="/poste/Av1uxeEr4nvtM5mQhJ3a">
           <IonCardHeader>
-            <IonCardTitle>Développement Java (Sénior)</IonCardTitle>
+            <IonCardTitle>Développement Typescript</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <IonText>WorldWide - Calais (62)</IonText>
+            <IonText>Braem Computing - Lille</IonText>
           </IonCardContent>
         </IonCard>
 
@@ -34,7 +48,7 @@ const Home: React.FC = () => {
             <IonCardTitle>Développement Ionic Capacitor (Junior)</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <IonText>WorldWide - Lille (59)</IonText>
+            <IonText>UneEntreprise - Lille (59)</IonText>
           </IonCardContent>
         </IonCard>
       </IonContent>

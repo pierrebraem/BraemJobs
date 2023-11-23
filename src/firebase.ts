@@ -60,12 +60,23 @@ export async function signup(nom: string, prenom: string, email: string, lieu: n
             lieu: new GeoPoint(lieu[0], lieu[1]),
             telephone: telephone,
             motdepasse: motdepasse,
+            description: null,
             image: null,
-            hardskill: null,
-            softskill: null,
-            experience: null,
-            formation: null,
+            hardskills: null,
+            softskills: null,
+            experiences: null,
+            formations: null,
             recruteur: false
+        }).then(async (userAdded) => {
+            await CapacitorCookies.setCookie({
+                key: 'userid',
+                value: userAdded.id
+            })
+
+            await CapacitorCookies.setCookie({
+                key: 'recruteur',
+                value: 'false'
+            })
         })
 
         await createUserWithEmailAndPassword(auth, email, motdepasse)
@@ -123,13 +134,18 @@ export function logout(){
 
 /* Fonctions offres */
 
-export async function getJobById(id: string){
-    const docRef = doc(db, 'emplois', id)
-    const docSnap = await getDoc(docRef)
-    return docSnap.data()
+export async function getJobs(){
+    const res = await getDocs(jobRef)
+    return res.docs
 }
 
-export async function addJob(intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
+export async function getJobById(id: string){
+    const job = doc(db, 'emplois', id)
+    const res = await getDoc(job)
+    return res.data()
+}
+
+export async function addJob(userid: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
     const competencesArray = competences.split(', ')
     
     addDoc(jobRef, {
@@ -140,11 +156,11 @@ export async function addJob(intitule: string, entreprise: string, lieu: string,
         description: description,
         profil: profil,
         candidats: null,
-        recruteur: 'aJ6hJbDmERbAPxUtT2Ca'
+        recruteur: userid
     })
 }
 
-export async function updateJob(id: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
+export async function updateJob(id: string, userid: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
     const job = doc(db, 'emplois', id)
 
     const competencesArray = competences.split(', ')
@@ -157,7 +173,7 @@ export async function updateJob(id: string, intitule: string, entreprise: string
         description: description,
         profil: profil,
         candidats: null,
-        recruteur: 'aJ6hJbDmERbAPxUtT2Ca'
+        recruteur: userid
     })
 }
 
@@ -165,4 +181,12 @@ export async function deleteJob(id: string){
     const job = doc(db, 'emplois', id)
 
     await deleteDoc(job)
+}
+
+/* Fonctions utilisateurs */
+
+export async function getUserById(id: string){
+    const userRef = doc(db, 'utilisateurs', id)
+    const userSnap = await getDoc(userRef)
+    return userSnap.data()
 }

@@ -13,6 +13,8 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
 
     const [lang, setLangue] = useState('fr')
     let isRecruteur: boolean = false
+    let userid: string = ''
+    let isLogged: boolean = false
 
     document.cookie.split(';').map((cookie) => {
         const valeur = cookie.split('=')
@@ -20,6 +22,11 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
             if(valeur[1].includes('true')){
                 isRecruteur = true
             }
+        }
+
+        if(valeur[0].includes('userid')){
+            isLogged = true
+            userid = valeur[1]
         }
     })
 
@@ -37,10 +44,8 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
             <IonText>RecrutementIC</IonText>
             <IonButtons slot="end">
                 { isRecruteur ? <IonButton id="Aannonce">{ lang === 'en' ? 'Add ad job' : 'Ajouter une annonce'}</IonButton> : <></>}
-                
-                { /* connexion ? <IonButton onClick={deconnection}>Deconnection</IonButton> : <IonButton href="/connexion">Connexion</IonButton> */ }
-                <IonButton onClick={deconnection}>{ lang === 'en' ? 'Logout' : 'Déconnexion'}</IonButton>
-                <IonButton href="/connexion">{ lang === 'en' ? 'Login' : 'Connexion'}</IonButton>
+                { isLogged ? <IonButton href={"profil/" + userid}>{lang === 'en' ? 'Profile' : 'Profil'}</IonButton> : <></>}
+                { isLogged ? <IonButton onClick={deconnection}>{ lang === 'en' ? 'Logout' : 'Déconnexion'}</IonButton> : <IonButton href="/connexion">{ lang === 'en' ? 'Login' : 'Connexion'}</IonButton> }
             </IonButtons>
 
             <IonAlert
@@ -76,7 +81,7 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
                 {
                     text: 'Ajouter',
                     handler: (data) => {
-                        addJob(data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
+                        addJob(userid, data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
                     }
                 },
             ]}

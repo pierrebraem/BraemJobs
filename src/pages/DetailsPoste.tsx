@@ -7,8 +7,11 @@ import { AppLauncher } from '@capacitor/app-launcher'
 import { Device } from '@capacitor/device'
 import './DetailsPoste.css'
 import { useState } from "react"
+import { useParams } from "react-router"
 
 const DetailsPoste: React.FC = () => {
+    const jobid: any = useParams()
+
     const [intitule, setIntitule] = useState('')
     const [entreprise, setEntreprise] = useState('')
     const [lieu, setLieu] = useState('')
@@ -17,8 +20,9 @@ const DetailsPoste: React.FC = () => {
     const [profil, setProfil] = useState('')
     const [lang, setLangue] = useState('fr')
     const [isOwner, setOwner] = useState(false) 
+    const [userid, setUserId] = useState('')
 
-    getJobById('sdD7V4CjvKKMrEM6vV8T').then((job: any) => {
+    getJobById(jobid.id).then((job: any) => {
         setIntitule(job.intitule)
         setEntreprise(job.entreprise)
         setLieu(job.lieu)
@@ -31,12 +35,15 @@ const DetailsPoste: React.FC = () => {
         document.cookie.split(';').map((cookie) => {
             const valeur = cookie.split('=')
             if(valeur[0].includes('userid')){
+                setUserId(valeur[1])
                 if(valeur[1].includes(job.recruteur)){
                     setOwner(true)
                 }
             }
         })
     })
+
+    console.log(jobid.id)
 
     async function lireAnnonce(){
         ScreenReader.speak({ value: intitule + ' sur ' + lieu + ' dans l\'entreprise' + entreprise + '.'
@@ -54,7 +61,7 @@ const DetailsPoste: React.FC = () => {
         })
 
         if(res){
-            deleteJob('sdD7V4CjvKKMrEM6vV8T')
+            deleteJob(jobid.id)
         }
     }
 
@@ -162,7 +169,7 @@ const DetailsPoste: React.FC = () => {
                     {
                         text: 'Modifier',
                         handler: (data) => {
-                            updateJob('sdD7V4CjvKKMrEM6vV8T', data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
+                            updateJob(jobid.id, userid, data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
                         }
                     },
                 ]}
