@@ -1,8 +1,9 @@
-import { IonText, IonAlert, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons } from "@ionic/react"
+import { IonText, IonAlert, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons, IonCardTitle } from "@ionic/react"
 import { getJobById, updateJob, deleteJob } from "../firebase"
 import EnteteContainer from "../components/EnteteContainer"
 import { ScreenReader } from "@capacitor/screen-reader"
 import { Dialog } from "@capacitor/dialog"
+import { AppLauncher } from '@capacitor/app-launcher'
 import './DetailsPoste.css'
 import { useState } from "react"
 
@@ -52,6 +53,33 @@ const DetailsPoste: React.FC = () => {
 
         if(res){
             deleteJob('sdD7V4CjvKKMrEM6vV8T')
+        }
+    }
+
+    async function ouvrirFacebook(){
+        const url = 'https://www.facebook.com/'
+        const checkIfAllowed = await AppLauncher.canOpenUrl({ url: url })
+
+        if(checkIfAllowed){
+            await AppLauncher.openUrl({ url: url })
+        }
+    }
+
+    async function ouvrirTwitter(){
+        const url = 'https://twitter.com/'
+        const checkIfAllowed = await AppLauncher.canOpenUrl({ url: url })
+
+        if(checkIfAllowed){
+            await AppLauncher.openUrl({ url: url })
+        }
+    }
+
+    async function ouvrirGithub(){
+        const url = 'https://github.com/'
+        const checkIfAllowed = await AppLauncher.canOpenUrl({ url: url })
+
+        if(checkIfAllowed){
+            await AppLauncher.openUrl({ url: url })
         }
     }
 
@@ -128,6 +156,19 @@ const DetailsPoste: React.FC = () => {
                     },
                 ]}
                 ></IonAlert> : <></>}
+
+                <IonCard>
+                    <IonCardHeader>
+                        <IonCardTitle>Liens entreprise</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>
+                        <IonButtons slot='middle'>
+                            <IonButton onClick={ouvrirFacebook}>Facebook</IonButton>
+                            <IonButton onClick={ouvrirTwitter}>Twitter</IonButton>
+                            <IonButton onClick={ouvrirGithub}>Github</IonButton>
+                        </IonButtons>
+                    </IonCardContent>
+                </IonCard>
             </IonContent>
         </IonPage>
     )
