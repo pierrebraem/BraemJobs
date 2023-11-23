@@ -2,6 +2,7 @@ import { IonText, IonAlert, IonPage, IonButton, IonHeader, IonTitle, IonContent,
 import { getJobById, updateJob, deleteJob } from "../firebase"
 import EnteteContainer from "../components/EnteteContainer"
 import { ScreenReader } from "@capacitor/screen-reader"
+import { Dialog } from "@capacitor/dialog"
 import './DetailsPoste.css'
 import { useState } from "react"
 
@@ -43,6 +44,17 @@ const DetailsPoste: React.FC = () => {
         language: 'fr'})
     }
 
+    async function supprimerAnnonce(){
+        const res = await Dialog.confirm({
+            title: 'Supprimer une annonce',
+            message: 'Voulez-vous vraiment supprimer cette annonce ?'
+        })
+
+        if(res){
+            deleteJob('sdD7V4CjvKKMrEM6vV8T')
+        }
+    }
+
     return(
         <IonPage>
             <IonHeader>
@@ -52,7 +64,7 @@ const DetailsPoste: React.FC = () => {
                 <IonButtons>
                     <IonButton href="/home">Retour</IonButton>
                     { isOwner ? <IonButton id="Mannonce">Modifier l'offre</IonButton> : <></>}
-                    { isOwner ? <IonButton id="Sannonce">Supprimer l'offre</IonButton> : <></>}
+                    { isOwner ? <IonButton onClick={supprimerAnnonce}>Supprimer l'offre</IonButton> : <></>}
                     <IonButton onClick={lireAnnonce}>Lire l'annonce</IonButton>
                 </IonButtons>
                 
@@ -114,19 +126,6 @@ const DetailsPoste: React.FC = () => {
                             updateJob('sdD7V4CjvKKMrEM6vV8T', data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
                         }
                     },
-                ]}
-                ></IonAlert> : <></>}
-
-                {isOwner ? <IonAlert
-                trigger='Sannonce'
-                header='Voulez-vous vraiment supprimer loffre?'
-                buttons={[
-                    {
-                        text: 'Supprimer',
-                        handler: () => {
-                            deleteJob('sdD7V4CjvKKMrEM6vV8T')
-                        }
-                    }
                 ]}
                 ></IonAlert> : <></>}
             </IonContent>
