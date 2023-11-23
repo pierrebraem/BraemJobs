@@ -129,7 +129,7 @@ export async function getJobById(id: string){
     return docSnap.data()
 }
 
-export async function addJob(intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
+export async function addJob(userid: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
     const competencesArray = competences.split(', ')
     
     addDoc(jobRef, {
@@ -140,11 +140,11 @@ export async function addJob(intitule: string, entreprise: string, lieu: string,
         description: description,
         profil: profil,
         candidats: null,
-        recruteur: 'aJ6hJbDmERbAPxUtT2Ca'
+        recruteur: userid
     })
 }
 
-export async function updateJob(id: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
+export async function updateJob(id: string, userid: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
     const job = doc(db, 'emplois', id)
 
     const competencesArray = competences.split(', ')
@@ -157,7 +157,7 @@ export async function updateJob(id: string, intitule: string, entreprise: string
         description: description,
         profil: profil,
         candidats: null,
-        recruteur: 'aJ6hJbDmERbAPxUtT2Ca'
+        recruteur: userid
     })
 }
 
