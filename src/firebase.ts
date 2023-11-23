@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { collection, getFirestore, query, where, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
+import { CapacitorCookies } from '@capacitor/core'
 
 const config = {
     apiKey: "AIzaSyCNQpjRKQdtDKKCIwNPv57TlgmPy3BxT8s",
@@ -84,6 +85,10 @@ export async function login(email: string, motdepasse: string){
                 result = false
             }
             else{
+                await CapacitorCookies.setCookie({
+                    key: 'userid',
+                    value: snapshot.docs[0].id
+                })
                 result = true
                 await signInWithEmailAndPassword(auth, email, motdepasse)
             }
@@ -98,6 +103,13 @@ export async function login(email: string, motdepasse: string){
     catch(error){
         console.log(error)
     }
+}
+
+export function logout(){
+    signOut(auth)
+    CapacitorCookies.deleteCookie({
+        key: 'userid'
+    })
 }
 
 /* Fonctions offres */
