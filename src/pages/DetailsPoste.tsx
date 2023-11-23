@@ -1,6 +1,7 @@
 import { IonText, IonAlert, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons } from "@ionic/react"
 import { getJobById, updateJob, deleteJob } from "../firebase"
 import EnteteContainer from "../components/EnteteContainer"
+import { ScreenReader } from "@capacitor/screen-reader"
 import './DetailsPoste.css'
 import { useState } from "react"
 
@@ -33,6 +34,15 @@ const DetailsPoste: React.FC = () => {
         })
     })
 
+    async function lireAnnonce(){
+        ScreenReader.speak({ value: intitule + ' sur ' + lieu + ' dans l\'entreprise' + entreprise + '.'
+        + 'Les compétences pour ce poste sont : ' + competences + '.'
+        + 'Description du poste' + description + '.'
+        + 'Le profil rechercher' + profil + '.'
+        , 
+        language: 'fr'})
+    }
+
     return(
         <IonPage>
             <IonHeader>
@@ -43,6 +53,7 @@ const DetailsPoste: React.FC = () => {
                     <IonButton href="/home">Retour</IonButton>
                     { isOwner ? <IonButton id="Mannonce">Modifier l'offre</IonButton> : <></>}
                     { isOwner ? <IonButton id="Sannonce">Supprimer l'offre</IonButton> : <></>}
+                    <IonButton onClick={lireAnnonce}>Lire l'annonce</IonButton>
                 </IonButtons>
                 
                 <IonTitle><h1>{intitule}</h1></IonTitle>
@@ -100,7 +111,7 @@ const DetailsPoste: React.FC = () => {
                     {
                         text: 'Modifier',
                         handler: (data) => {
-                            updateJob('OOWiUlE43KzrY6cc1jto', data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
+                            updateJob('sdD7V4CjvKKMrEM6vV8T', data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
                         }
                     },
                 ]}
@@ -113,7 +124,7 @@ const DetailsPoste: React.FC = () => {
                     {
                         text: 'Supprimer',
                         handler: () => {
-                            deleteJob('OOWiUlE43KzrY6cc1jto')
+                            deleteJob('sdD7V4CjvKKMrEM6vV8T')
                         }
                     }
                 ]}
