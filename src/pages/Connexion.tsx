@@ -2,7 +2,7 @@ import { IonPage, IonHeader, IonToolbar, IonText, IonButtons, IonButton, IonCont
 import EnteteContainer from "../components/EnteteContainer"
 import "./Connexion.css"
 import { useState } from "react"
-import { login } from "../firebase"
+import { login, logout } from "../firebase"
 
 const Connexion: React.FC = () => {
     const [email, setEmail] = useState('')
@@ -11,6 +11,7 @@ const Connexion: React.FC = () => {
     async function connexion(){
         const res = await login(email, motdepasse)
         if(res){
+            //await logout()
             location.replace('/')
         }
     }

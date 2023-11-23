@@ -89,6 +89,11 @@ export async function login(email: string, motdepasse: string){
                     key: 'userid',
                     value: snapshot.docs[0].id
                 })
+
+                await CapacitorCookies.setCookie({
+                    key: 'recruteur',
+                    value: snapshot.docs[0].data().recruteur
+                })
                 result = true
                 await signInWithEmailAndPassword(auth, email, motdepasse)
             }
@@ -109,6 +114,9 @@ export function logout(){
     signOut(auth)
     CapacitorCookies.deleteCookie({
         key: 'userid'
+    })
+    CapacitorCookies.deleteCookie({
+        key: 'recruteur'
     })
 }
 
