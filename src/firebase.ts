@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { collection, getFirestore, query, where, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, GeoPoint, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 import { CapacitorCookies } from '@capacitor/core'
 
@@ -43,7 +43,7 @@ async function checkIfEmailAlreadyExist(email: string){
 
 /* Fonctions connexion */
 
-export async function signup(nom: string, prenom: string, email: string, telephone: string, motdepasse: string, motdepasseC: string){
+export async function signup(nom: string, prenom: string, email: string, lieu: number[], telephone: string, motdepasse: string, motdepasseC: string){
     try{
         if(await checkIfEmailAlreadyExist(email)){
             throw new Error('L\'adresse mail existe déjà')
@@ -57,6 +57,7 @@ export async function signup(nom: string, prenom: string, email: string, telepho
             nom: nom,
             prenom: prenom,
             email: email,
+            lieu: new GeoPoint(lieu[0], lieu[1]),
             telephone: telephone,
             motdepasse: motdepasse,
             image: null,

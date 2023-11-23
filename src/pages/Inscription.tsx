@@ -3,6 +3,7 @@ import EnteteContainer from "../components/EnteteContainer"
 import "./Inscription.css"
 import { useState } from "react"
 import { signup } from "../firebase"
+import { Geolocation } from '@capacitor/geolocation'
 
 const Inscription: React.FC = () => {
     const [nom, setNom] = useState('')
@@ -12,11 +13,24 @@ const Inscription: React.FC = () => {
     const [motdepasse, setMotdepasse] = useState('')
     const [motdepasseC, setMotdepasseC] = useState('')
 
+    let lieu: number[] = [0, 0]
+
     async function inscription(){
-        const res = await signup(nom, prenom, email, telephone, motdepasse, motdepasseC)
+        const res = await signup(nom, prenom, email, lieu, telephone, motdepasse, motdepasseC)
         if(res){
             location.replace('/')
         }
+    }
+
+    async function geolocalisation(){
+        /* 
+            A essayer sur téléphone
+            await Geolocation.requestPermissions()
+        */
+        //await Geolocation.requestPermissions()
+
+        const coordonnees = (await Geolocation.getCurrentPosition()).coords
+        lieu = [coordonnees.latitude, coordonnees.longitude]
     }
 
     return(
@@ -85,6 +99,7 @@ const Inscription: React.FC = () => {
                         ></IonInput>
                         
                         <IonButton onClick={inscription}>Inscription</IonButton>
+                        <IonButton onClick={geolocalisation}>Me géolocaliser</IonButton>
                     </IonCardContent>
                 </IonCard>
             </IonContent>
