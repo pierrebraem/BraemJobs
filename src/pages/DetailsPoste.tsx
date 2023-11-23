@@ -4,6 +4,7 @@ import EnteteContainer from "../components/EnteteContainer"
 import { ScreenReader } from "@capacitor/screen-reader"
 import { Dialog } from "@capacitor/dialog"
 import { AppLauncher } from '@capacitor/app-launcher'
+import { Device } from '@capacitor/device'
 import './DetailsPoste.css'
 import { useState } from "react"
 
@@ -14,6 +15,7 @@ const DetailsPoste: React.FC = () => {
     const [competences, setCompetences] = useState('')
     const [description, setDescription] = useState('')
     const [profil, setProfil] = useState('')
+    const [lang, setLangue] = useState('fr')
     const [isOwner, setOwner] = useState(false) 
 
     getJobById('sdD7V4CjvKKMrEM6vV8T').then((job: any) => {
@@ -83,6 +85,15 @@ const DetailsPoste: React.FC = () => {
         }
     }
 
+    async function obtenirLangue(){
+        const obLangue = await Device.getLanguageCode()
+        setLangue(obLangue.value)
+    }
+    
+    obtenirLangue()
+
+    console.log(lang)
+
     return(
         <IonPage>
             <IonHeader>
@@ -90,22 +101,22 @@ const DetailsPoste: React.FC = () => {
             </IonHeader>
             <IonContent fullscreen>
                 <IonButtons>
-                    <IonButton href="/home">Retour</IonButton>
-                    { isOwner ? <IonButton id="Mannonce">Modifier l'offre</IonButton> : <></>}
-                    { isOwner ? <IonButton onClick={supprimerAnnonce}>Supprimer l'offre</IonButton> : <></>}
-                    <IonButton onClick={lireAnnonce}>Lire l'annonce</IonButton>
+                    <IonButton href="/home">{ lang === 'en' ? 'Back' : 'Retour'}</IonButton>
+                    { isOwner ? <IonButton id="Mannonce">{ lang === 'en' ? 'Modify the job offer' : 'Modifier l\'offre'}</IonButton> : <></>}
+                    { isOwner ? <IonButton onClick={supprimerAnnonce}>{ lang === 'en' ? 'Delete the job offer' : 'Supprimer l\'offre'}</IonButton> : <></>}
+                    <IonButton onClick={lireAnnonce}>{ lang === 'en' ? 'Read job offer' : 'Lire l\'annonce'}</IonButton>
                 </IonButtons>
                 
                 <IonTitle><h1>{intitule}</h1></IonTitle>
 
                 <IonText><p>{lieu}</p></IonText>
                 <IonText><p>{entreprise}</p></IonText>
-                <IonText><p>Compétences : {competences}</p></IonText>
+                <IonText><p>{ lang === 'en' ? 'Skills' : 'Compétences'} : {competences}</p></IonText>
 
-                <IonTitle><h2>Description du poste</h2></IonTitle>
+                <IonTitle><h2>{ lang === 'en' ? 'Job description' : 'Description du poste'}</h2></IonTitle>
                 <IonText><p>{description}</p></IonText>
 
-                <IonTitle><h2>Profil</h2></IonTitle>
+                <IonTitle><h2>{ lang === 'en' ? 'Job requirements' : 'Profil'}</h2></IonTitle>
                 <IonText><p>{profil}</p></IonText>
 
                 <IonCard>
@@ -159,7 +170,7 @@ const DetailsPoste: React.FC = () => {
 
                 <IonCard>
                     <IonCardHeader>
-                        <IonCardTitle>Liens entreprise</IonCardTitle>
+                        <IonCardTitle>{ lang === 'en' ? 'Links of company' : 'Liens de l\'entreprise'}</IonCardTitle>
                     </IonCardHeader>
                     <IonCardContent>
                         <IonButtons slot='middle'>
