@@ -9,3 +9,4 @@ La version 0.1 représente la réalisation du projet sur une semaine. Les versio
 ## Liens
 * [Comment déployer l'application sur Firebase](./docs/DeploimentFirebase.md)
 * [Initialisation du projet sur émulateur Android et installation de l'application APK](./docs/Android.md)
+* [Historique des versions](./docs/Versions.md)
