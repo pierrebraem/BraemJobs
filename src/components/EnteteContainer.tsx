@@ -1,4 +1,4 @@
-import { IonToolbar, IonText, IonButton, IonButtons, IonAlert } from '@ionic/react'
+import { IonToolbar, IonText, IonButton, IonButtons, IonAlert, IonItem } from '@ionic/react'
 import { Device } from '@capacitor/device'
 import { useState } from 'react'
 import { addJob, logout } from '../firebase'
@@ -9,6 +9,7 @@ interface ContainerProps { }
 const EnteteContainer: React.FC<ContainerProps> = () => {
     function deconnection(){
         logout()
+        location.replace('/')
     }
 
     const [lang, setLangue] = useState('fr')
@@ -41,7 +42,9 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
 
     return(
         <IonToolbar>
-            <IonText>RecrutementIC</IonText>
+            <IonItem href="/">
+                <IonText>RecrutementIC</IonText>
+            </IonItem>
             <IonButtons slot="end">
                 { isRecruteur ? <IonButton id="Aannonce">{ lang === 'en' ? 'Add ad job' : 'Ajouter une annonce'}</IonButton> : <></>}
                 { isLogged ? <IonButton href={"profil/" + userid}>{lang === 'en' ? 'Profile' : 'Profil'}</IonButton> : <></>}
