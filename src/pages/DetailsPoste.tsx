@@ -1,4 +1,4 @@
-import { IonText, IonAlert, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons, IonCardTitle } from "@ionic/react"
+import { IonText, IonAlert, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons, IonCardTitle, IonGrid } from "@ionic/react"
 import { getJobById, updateJob, deleteJob } from "../firebase"
 import EnteteContainer from "../components/EnteteContainer"
 import { ScreenReader } from "@capacitor/screen-reader"
@@ -126,15 +126,32 @@ const DetailsPoste: React.FC = () => {
                 <IonTitle><h2>{ lang === 'en' ? 'Job requirements' : 'Profil'}</h2></IonTitle>
                 <IonText><p>{profil}</p></IonText>
 
-                <IonCard>
-                    <IonCardHeader>
-                        <IonTitle><h3>Postuler</h3></IonTitle>
-                    </IonCardHeader>
-                    <IonCardContent>
-                        <IonText><p>Regarder import de CV et LT avec capacitor/filesystem</p></IonText>
-                        <IonButton>Postuler</IonButton>
-                    </IonCardContent>
-                </IonCard>
+                <IonGrid>
+                    <IonCard>
+                        <IonCardHeader>
+                            <IonTitle><h3>Postuler</h3></IonTitle>
+                        </IonCardHeader>
+                        <IonCardContent>
+                            <IonText><p>Regarder import de CV et LT avec capacitor/filesystem</p></IonText>
+                            <IonButton>Postuler</IonButton>
+                        </IonCardContent>
+                    </IonCard>
+                </IonGrid>
+
+                <IonGrid>
+                    <IonCard>
+                        <IonCardHeader>
+                            <IonCardTitle>{ lang === 'en' ? 'Links of company' : 'Liens de l\'entreprise'}</IonCardTitle>
+                        </IonCardHeader>
+                        <IonCardContent>
+                            <IonButtons slot='middle'>
+                                <IonButton onClick={ouvrirFacebook}>Facebook</IonButton>
+                                <IonButton onClick={ouvrirTwitter}>Twitter</IonButton>
+                                <IonButton onClick={ouvrirGithub}>Github</IonButton>
+                            </IonButtons>
+                        </IonCardContent>
+                    </IonCard>
+                </IonGrid>
 
                 {isOwner ? <IonAlert
                 trigger='Mannonce'
@@ -174,19 +191,6 @@ const DetailsPoste: React.FC = () => {
                     },
                 ]}
                 ></IonAlert> : <></>}
-
-                <IonCard>
-                    <IonCardHeader>
-                        <IonCardTitle>{ lang === 'en' ? 'Links of company' : 'Liens de l\'entreprise'}</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>
-                        <IonButtons slot='middle'>
-                            <IonButton onClick={ouvrirFacebook}>Facebook</IonButton>
-                            <IonButton onClick={ouvrirTwitter}>Twitter</IonButton>
-                            <IonButton onClick={ouvrirGithub}>Github</IonButton>
-                        </IonButtons>
-                    </IonCardContent>
-                </IonCard>
             </IonContent>
         </IonPage>
     )
