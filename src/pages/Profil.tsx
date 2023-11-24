@@ -1,4 +1,4 @@
-import { IonHeader, IonPage, IonTitle, IonContent, IonText, IonRow, IonAvatar, IonLabel, IonItem, IonCard, IonCardHeader, IonCardContent, IonList, IonCol, IonButton, IonButtons, IonAlert } from "@ionic/react"
+import { IonHeader, IonPage, IonTitle, IonContent, IonText, IonRow, IonAvatar, IonLabel, IonItem, IonCard, IonCardHeader, IonCardContent, IonList, IonCol, IonButton, IonButtons, IonAlert, IonGrid } from "@ionic/react"
 import { useParams } from "react-router"
 import { useState } from "react"
 import EnteteContainer from "../components/EnteteContainer"
@@ -36,15 +36,15 @@ const Profil : React.FC = () => {
                     </IonAvatar>
                     <IonLabel>{nomComplet}</IonLabel>
                 </IonItem>
-                <IonItem>
+                <IonGrid>
                     <IonCard>
                         <IonCardHeader>
                             <IonTitle><h3>Description</h3></IonTitle>
                         </IonCardHeader>
                         <IonCardContent><p>{description !== null ? description : 'Aucune discription disponible'}</p></IonCardContent>
                     </IonCard>
-                </IonItem>
-                <IonItem>
+                </IonGrid>
+                <IonGrid>
                     <IonCard>
                         <IonCardHeader>
                             <IonTitle><h3>Compétences</h3></IonTitle>
@@ -82,16 +82,13 @@ const Profil : React.FC = () => {
                             : 'Aucune soft-skills trouvées'}
                         </IonCardContent>
                     </IonCard>
-                </IonItem>
+                </IonGrid>
 
-                <IonItem>
+                <IonGrid>
                     <IonCard>
                         <IonCardHeader>
                             <IonItem>
                                 <IonTitle><h3>Expériences</h3></IonTitle>
-                                <IonButtons slot="end">
-                                    <IonButton id="ajouter-experience">Ajouter une expérience</IonButton>
-                                </IonButtons>
                             </IonItem>
                         </IonCardHeader>
                         <IonCardContent>
@@ -129,18 +126,18 @@ const Profil : React.FC = () => {
                             </IonItem>
                             
                             : 'Aucune expérience trouvées'}
+                            <IonButtons>
+                                <IonButton id="ajouter-experience">Ajouter une expérience</IonButton>
+                            </IonButtons>
                         </IonCardContent>
                     </IonCard>
-                </IonItem>
+                </IonGrid>
 
-                <IonItem>
+                <IonGrid>
                     <IonCard>
                         <IonCardHeader>
                             <IonItem>
                                 <IonTitle><h3>Formations</h3></IonTitle>
-                                <IonButtons slot="end">
-                                    <IonButton id="ajouter-formation">Ajouter une formation</IonButton>
-                                </IonButtons>
                             </IonItem>
                         </IonCardHeader>
                         <IonCardContent>
@@ -162,9 +159,12 @@ const Profil : React.FC = () => {
                                 </IonRow>
                             </IonItem>
                             : 'Aucune formation trouvées'}
+                            <IonButtons>
+                                <IonButton id="ajouter-formation">Ajouter une formation</IonButton>
+                            </IonButtons>
                         </IonCardContent>
                     </IonCard>
-                </IonItem>
+                </IonGrid>
 
                 <IonAlert
                 trigger='ajouter-experience'
