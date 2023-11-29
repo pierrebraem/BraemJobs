@@ -6,6 +6,7 @@ import DetailsPoste from './pages/DetailsPoste';
 import Connexion from './pages/Connexion';
 import Inscription from './pages/Inscription';
 import Profil from './pages/Profil';
+import Recruteur from './pages/Recruteur'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -37,6 +38,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/poste/:id">
           <DetailsPoste />
+        </Route>
+        <Route exact path="/recruteur">
+          <Recruteur />
         </Route>
         <Route exact path="/connexion">
           <Connexion />

@@ -45,49 +45,10 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
                 <IonText>RecrutementIC</IonText>
             </IonItem>
             <IonButtons slot="end">
-                { isRecruteur ? <IonButton id="Aannonce">{ lang === 'en' ? 'Add ad job' : 'Ajouter une annonce'}</IonButton> : <></>}
+                { isRecruteur ? <IonButton href="recruteur">Consulter mes annonces</IonButton> : <></>}
                 { isLogged ? <IonButton href={"profil/" + userid}>{lang === 'en' ? 'Profile' : 'Profil'}</IonButton> : <></>}
                 { isLogged ? <IonButton onClick={deconnection}>{ lang === 'en' ? 'Logout' : 'Déconnexion'}</IonButton> : <IonButton href="/connexion">{ lang === 'en' ? 'Login' : 'Connexion'}</IonButton> }
             </IonButtons>
-
-            <IonAlert
-            trigger='Aannonce'
-            header='Ajouter une annonce'
-            inputs={[
-                {
-                    placeholder: 'Intitulé du poste',
-                    name: 'intitule'
-                },
-                {
-                    placeholder: 'Entreprise',
-                    name: 'entreprise'
-                },
-                {
-                    placeholder: 'Lieu',
-                    name: 'lieu'
-                },
-                {
-                    placeholder: 'Compétences',
-                    name: 'competences'
-                },
-                {
-                    placeholder: 'Description',
-                    name: 'description'
-                },
-                {
-                    placeholder: 'Profil',
-                    name: 'profil'
-                }
-            ]}
-            buttons={[
-                {
-                    text: 'Ajouter',
-                    handler: (data) => {
-                        addJob(userid, data.intitule, data.entreprise, data.lieu, data.competences, data.description, data.profil)
-                    }
-                },
-            ]}
-            ></IonAlert>
         </IonToolbar>
     )
 }
