@@ -5,7 +5,6 @@ import { ScreenReader } from "@capacitor/screen-reader"
 import { Dialog } from "@capacitor/dialog"
 import { AppLauncher } from '@capacitor/app-launcher'
 import { Device } from '@capacitor/device'
-import './DetailsPoste.css'
 import { useState } from "react"
 import { useParams } from "react-router"
 

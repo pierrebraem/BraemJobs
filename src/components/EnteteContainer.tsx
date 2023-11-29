@@ -2,7 +2,6 @@ import { IonToolbar, IonText, IonButton, IonButtons, IonAlert, IonItem } from '@
 import { Device } from '@capacitor/device'
 import { useState } from 'react'
 import { addJob, logout } from '../firebase'
-import './EnteteContainer.css'
 
 interface ContainerProps { }
 

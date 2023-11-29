@@ -1,6 +1,5 @@
-import { IonContent, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonSearchbar } from '@ionic/react';
+import { IonContent, IonPage, IonHeader, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonText, IonSearchbar } from '@ionic/react';
 import EnteteContainer from "../components/EnteteContainer"
-import './Home.css';
 import { getJobs } from '../firebase';
 import { useEffect, useState } from "react"
 

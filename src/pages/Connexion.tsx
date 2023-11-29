@@ -1,6 +1,5 @@
 import { IonPage, IonHeader, IonToolbar, IonText, IonButtons, IonButton, IonContent, IonCard, IonCardHeader, IonTitle, IonCardContent, IonInput, IonRouterLink } from "@ionic/react"
 import EnteteContainer from "../components/EnteteContainer"
-import "./Connexion.css"
 import { useState } from "react"
 import { Device } from '@capacitor/device'
 import { login, logout } from "../firebase"

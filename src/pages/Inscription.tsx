@@ -1,6 +1,5 @@
 import { IonPage, IonHeader, IonButton, IonContent, IonCard, IonCardHeader, IonTitle, IonCardContent, IonInput } from "@ionic/react"
 import EnteteContainer from "../components/EnteteContainer"
-import "./Inscription.css"
 import { useState } from "react"
 import { signup } from "../firebase"
 import { Geolocation } from '@capacitor/geolocation'
