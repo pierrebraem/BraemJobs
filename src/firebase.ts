@@ -145,6 +145,23 @@ export async function getJobById(id: string){
     return res.data()
 }
 
+export async function getJobsByUserId(userid: string){
+    try{
+        const q = query(jobRef, where('recruteur', '==', userid))
+        let result: any[] = []
+        await getDocs(q).then((snapshot) => {
+            snapshot.docs.map((job) => {
+                result.push({ id: job.id, ...job.data()})
+            })
+        })
+
+        return result;
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 export async function addJob(userid: string, intitule: string, entreprise: string, lieu: string, competences: string, description: string, profil: string){
     const competencesArray = competences.split(', ')
     
