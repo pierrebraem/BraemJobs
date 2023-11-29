@@ -2,20 +2,27 @@ import { IonContent, IonPage, IonHeader, IonToolbar, IonButtons, IonButton, IonC
 import EnteteContainer from "../components/EnteteContainer"
 import './Home.css';
 import { getJobs } from '../firebase';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Home: React.FC = () => {
+  const [jobs, setJobs] = useState([] as any)
 
-  /* const test = getJobs().then((res) => {
-    let jobsRes: any[] = []
-    res.map((job) => {
-      jobsRes.push({id: job.id, ...job.data()})
-    })
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const jobsRes = await getJobs()
 
-    return jobsRes
-  })
+      let jobs: any[] = []
+      jobsRes.map((job) => {
+        jobs.push({ id: job.id, ...job.data() })
+      })
 
-  console.log(test) */
+      setJobs(jobs)
+    }
+
+    fetchJobs().catch(console.error)
+  }, [])
+
+  console.log(jobs)
 
   return (
     <IonPage>
@@ -25,32 +32,20 @@ const Home: React.FC = () => {
       <IonContent fullscreen>
         <IonSearchbar color="medium" showClearButton='always' placeholder='Rechercher un métier'></IonSearchbar>
 
-        <IonCard color="medium" href="/poste/sNww2S3zPmHeccpUeUKy">
-          <IonCardHeader>
-            <IonCardTitle>Développement NodeJS (junior)</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonText>BraemComputing - Lille</IonText>
-          </IonCardContent>
-        </IonCard>
-
-        <IonCard color="medium" href="/poste/Av1uxeEr4nvtM5mQhJ3a">
-          <IonCardHeader>
-            <IonCardTitle>Développement Typescript</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonText>Braem Computing - Lille</IonText>
-          </IonCardContent>
-        </IonCard>
-
-        <IonCard color="medium">
-          <IonCardHeader>
-            <IonCardTitle>Développement Ionic Capacitor (Junior)</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonText>UneEntreprise - Lille (59)</IonText>
-          </IonCardContent>
-        </IonCard>
+        {
+          jobs.map((job: any) => {
+            return(
+              <IonCard color="medium" href={"poste/" + job.id}>
+                <IonCardHeader>
+                  <IonCardTitle>{job.intitule}</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  <IonText>{job.entreprise} - {job.lieu}</IonText>
+                </IonCardContent>
+              </IonCard>
+            )
+          })
+        }
       </IonContent>
     </IonPage>
   );
