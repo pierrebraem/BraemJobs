@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { collection, getFirestore, query, where, GeoPoint, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { CapacitorCookies } from '@capacitor/core'
 
 const config = {
@@ -16,6 +17,7 @@ const config = {
 
 const app = initializeApp(config)
 const analytics = getAnalytics(app)
+const storage = getStorage(app)
 
 const auth = getAuth()
 
@@ -198,6 +200,16 @@ export async function deleteJob(id: string){
     const job = doc(db, 'emplois', id)
 
     await deleteDoc(job)
+}
+
+/* Fonctions CVs */
+
+export async function addCV(CV: any, idJob: string, idUser: string){
+    const url = idJob + '/' + idUser + '.' + CV.name.split('.')[1]
+    const docRef = ref(storage, url)
+    uploadBytes(docRef, CV).then(() => {
+        console.log("Le CV a était publié")
+    })
 }
 
 /* Fonctions utilisateurs */

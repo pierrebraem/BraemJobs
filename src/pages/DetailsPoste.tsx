@@ -1,5 +1,5 @@
 import { IonText, IonAlert, IonPage, IonButton, IonHeader, IonTitle, IonContent, IonCard, IonCardHeader, IonCardContent, IonToolbar, IonButtons, IonCardTitle, IonGrid } from "@ionic/react"
-import { getJobById, updateJob, deleteJob } from "../firebase"
+import { getJobById, updateJob, deleteJob, addCV } from "../firebase"
 import EnteteContainer from "../components/EnteteContainer"
 import { ScreenReader } from "@capacitor/screen-reader"
 import { Dialog } from "@capacitor/dialog"
@@ -10,6 +10,7 @@ import { useParams } from "react-router"
 
 const DetailsPoste: React.FC = () => {
     const jobid: any = useParams()
+    let CV: any = null
 
     const [intitule, setIntitule] = useState('')
     const [entreprise, setEntreprise] = useState('')
@@ -100,6 +101,16 @@ const DetailsPoste: React.FC = () => {
 
     console.log(lang)
 
+    function setCV(e: any){
+        CV = e.target.files![0]
+    }
+
+    function envoyerDocument(){
+        if(CV != null){
+            addCV(CV, jobid.id, userid)
+        }
+    }
+
     return(
         <IonPage>
             <IonHeader>
@@ -130,10 +141,16 @@ const DetailsPoste: React.FC = () => {
                         <IonCardHeader>
                             <IonTitle><h3>Postuler</h3></IonTitle>
                         </IonCardHeader>
-                        <IonCardContent>
-                            <IonText><p>Regarder import de CV et LT avec capacitor/filesystem</p></IonText>
-                            <IonButton>Postuler</IonButton>
-                        </IonCardContent>
+                            {userid != '' ? 
+                                <IonCardContent>
+                                    <input type="file" id="envoieCV" onChange={setCV}/>
+                                    <IonButton onClick={envoyerDocument}>Postuler</IonButton>
+                                </IonCardContent>
+                                :
+                                <IonCardContent>
+                                    <IonText>Vous devez être connectés pour pouvoir postuler</IonText>
+                                </IonCardContent>
+                            }
                     </IonCard>
                 </IonGrid>
 
