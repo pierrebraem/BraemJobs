@@ -51,6 +51,10 @@ const Recruteur: React.FC = () => {
                                 </IonCardHeader>
                                 <IonCardContent>
                                     <IonText>{job.entreprise} - {job.lieu}</IonText>
+                                    <div>
+                                        <IonButton href={"poste/" + job.id}>Consulter l'offre</IonButton>
+                                        <IonButton href={"candidatures/" + job.id}>Consulter les candidatures</IonButton>
+                                    </div>
                                 </IonCardContent>
                             </IonCard>
                         )

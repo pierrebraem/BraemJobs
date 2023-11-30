@@ -205,21 +205,39 @@ export async function deleteJob(id: string){
 /* Fonctions CVs */
 
 export async function addCV(CV: any, idJob: string, idUser: string){
-    const url = idJob + '/' + idUser + '.' + CV.name.split('.')[1]
+    const url = 'candidatures/' + idJob + '/' + idUser + '.' + CV.name.split('.')[1]
     const docRef = ref(storage, url)
 
     const job = doc(db, 'emplois', idJob)
+
+    const user: any = await getUserById(idUser)
 
     uploadBytes(docRef, CV).then(async () => {
         await updateDoc(job, {
             candidats: arrayUnion({
                 idCandidat: idUser,
-                urlCV: url
+                nomCandidat: user.nom,
+                prenomCandidat: user.prenom,
+                emailCandidat: user.email,
+                telephoneCandidat: user.telephone,
+                urlCV: url,
+                etat: 'En cours d\'examen'
             })
         })
 
         console.log("Le CV a était publié")
     })
+}
+
+export async function getCVsByJob(idJob: string){
+    try{
+        const jobs = doc(db, 'emplois', idJob)
+        const res = await getDoc(jobs)
+        return res.data()
+    }
+    catch(error){
+        console.log(error)
+    }
 }
 
 /* Fonctions utilisateurs */
