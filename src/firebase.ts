@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { collection, getFirestore, query, where, GeoPoint, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getFirestore, query, where, GeoPoint, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
 import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { CapacitorCookies } from '@capacitor/core'
@@ -207,7 +207,17 @@ export async function deleteJob(id: string){
 export async function addCV(CV: any, idJob: string, idUser: string){
     const url = idJob + '/' + idUser + '.' + CV.name.split('.')[1]
     const docRef = ref(storage, url)
-    uploadBytes(docRef, CV).then(() => {
+
+    const job = doc(db, 'emplois', idJob)
+
+    uploadBytes(docRef, CV).then(async () => {
+        await updateDoc(job, {
+            candidats: arrayUnion({
+                idCandidat: idUser,
+                urlCV: url
+            })
+        })
+
         console.log("Le CV a était publié")
     })
 }

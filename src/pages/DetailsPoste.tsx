@@ -107,7 +107,16 @@ const DetailsPoste: React.FC = () => {
 
     function envoyerDocument(){
         if(CV != null){
-            addCV(CV, jobid.id, userid)
+            if(((CV.size / 1024) / 1024) >= 2){
+                console.log('Le fichier est trop volumineux')
+            }
+            else if(CV.type != 'application/pdf'){
+                console.log('Le fichier doit être un PDF')
+            }
+            else{
+                addCV(CV, jobid.id, userid)
+            }
+            
         }
     }
 
@@ -143,6 +152,9 @@ const DetailsPoste: React.FC = () => {
                         </IonCardHeader>
                             {userid != '' ? 
                                 <IonCardContent>
+                                    <div>
+                                        <IonText>Le fichier doit être un PDF de taille maximal de 2 Mb</IonText>
+                                    </div>
                                     <input type="file" id="envoieCV" onChange={setCV}/>
                                     <IonButton onClick={envoyerDocument}>Postuler</IonButton>
                                 </IonCardContent>
