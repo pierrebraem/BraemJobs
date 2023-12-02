@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { collection, getFirestore, query, where, GeoPoint, getDocs, addDoc, doc, getDoc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
-import { getStorage, ref, uploadBytes } from 'firebase/storage'
+import { getBlob, getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import { CapacitorCookies } from '@capacitor/core'
 
 const config = {
@@ -234,6 +234,17 @@ export async function getCVsByJob(idJob: string){
         const jobs = doc(db, 'emplois', idJob)
         const res = await getDoc(jobs)
         return res.data()
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+export async function downloadFile(url: string){
+    try{
+        const gsReference = ref(storage, 'gs://recrutementic-c701c.appspot.com/' + url)
+
+        return await getDownloadURL(gsReference)
     }
     catch(error){
         console.log(error)

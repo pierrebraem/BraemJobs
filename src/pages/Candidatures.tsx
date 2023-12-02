@@ -1,8 +1,8 @@
-import { IonPage, IonHeader, IonContent, IonCardTitle, IonCard, IonCardHeader } from "@ionic/react"
+import { IonPage, IonHeader, IonContent, IonButton, IonCardTitle, IonCard, IonCardHeader, IonCardContent, IonButtons } from "@ionic/react"
 import EnteteContainer from "../components/EnteteContainer"
 import { useState, useEffect } from "react"
 import { useParams } from "react-router"
-import { getCVsByJob, getUserById } from "../firebase"
+import { downloadFile, getCVsByJob } from "../firebase"
 
 const Candidatures: React.FC = () => {
     const job: any = useParams()
@@ -20,6 +20,11 @@ const Candidatures: React.FC = () => {
         fetchCandidatures()
     }, [])
 
+    async function ouvrirCV(url: string){
+        const urlD: any = await downloadFile(url)
+        window.open(urlD, '_blank')
+    }
+
     return(
         <IonPage>
             <IonHeader>
@@ -31,8 +36,14 @@ const Candidatures: React.FC = () => {
                         return(
                             <IonCard color="medium">
                                 <IonCardHeader>
-                                    <IonCardTitle>{candidature.nomCandidat} - {candidature.prenomCandidat}</IonCardTitle>
+                                    <IonCardTitle>{candidature.prenomCandidat} {candidature.nomCandidat}</IonCardTitle>
                                 </IonCardHeader>
+                                <IonCardContent>
+                                    <IonButtons>
+                                        <IonButton href={"profil/" + candidature.idCandidat}>Consulter le profil</IonButton>
+                                        <IonButton onClick={() => ouvrirCV(candidature.urlCV)}>Consulter le CV</IonButton>
+                                    </IonButtons>
+                                </IonCardContent>
                             </IonCard>
                         )
                     })

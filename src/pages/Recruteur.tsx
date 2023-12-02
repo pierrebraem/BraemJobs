@@ -1,4 +1,4 @@
-import { IonHeader, IonText, IonPage, IonContent, IonAlert, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardTitle } from "@ionic/react"
+import { IonHeader, IonText, IonPage, IonContent, IonAlert, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonButtons } from "@ionic/react"
 import EnteteContainer from "../components/EnteteContainer";
 import { addJob, getJobsByUserId } from "../firebase";
 import { useState, useEffect } from "react";
@@ -51,10 +51,10 @@ const Recruteur: React.FC = () => {
                                 </IonCardHeader>
                                 <IonCardContent>
                                     <IonText>{job.entreprise} - {job.lieu}</IonText>
-                                    <div>
+                                    <IonButtons>
                                         <IonButton href={"poste/" + job.id}>Consulter l'offre</IonButton>
                                         <IonButton href={"candidatures/" + job.id}>Consulter les candidatures</IonButton>
-                                    </div>
+                                    </IonButtons>
                                 </IonCardContent>
                             </IonCard>
                         )

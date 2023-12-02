@@ -42,7 +42,7 @@ const EnteteContainer: React.FC<ContainerProps> = () => {
     return(
         <IonToolbar>
             <IonItem href="/">
-                <IonText>RecrutementIC</IonText>
+                <IonText>BraemJobs</IonText>
             </IonItem>
             <IonButtons slot="end">
                 { isRecruteur ? <IonButton href="recruteur">Consulter mes annonces</IonButton> : <></>}
