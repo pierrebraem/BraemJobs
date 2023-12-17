@@ -174,7 +174,7 @@ export async function addJob(userid: string, intitule: string, entreprise: strin
         competences: competencesArray,
         description: description,
         profil: profil,
-        candidats: null,
+        enRecherche: true,
         recruteur: userid
     })
 }
@@ -191,15 +191,18 @@ export async function updateJob(id: string, userid: string, intitule: string, en
         competences: competencesArray,
         description: description,
         profil: profil,
-        candidats: null,
+        enRecherche: true,
         recruteur: userid
     })
 }
 
 export async function deleteJob(id: string){
-    const job = doc(db, 'emplois', id)
-
-    await deleteDoc(job)
+    getDocs(collection(jobRef, id, 'candidats')).then((snapshot) => {
+        snapshot.docs.map(async (candidat) => {
+            await deleteDoc(doc(jobRef, id, 'candidats', candidat.id))
+        })
+    })
+    await deleteDoc(doc(db, 'emplois', id))
 }
 
 /* Fonctions CVs */
@@ -213,16 +216,14 @@ export async function addCV(CV: any, idJob: string, idUser: string){
     const user: any = await getUserById(idUser)
 
     uploadBytes(docRef, CV).then(async () => {
-        await updateDoc(job, {
-            candidats: arrayUnion({
-                idCandidat: idUser,
-                nomCandidat: user.nom,
-                prenomCandidat: user.prenom,
-                emailCandidat: user.email,
-                telephoneCandidat: user.telephone,
-                urlCV: url,
-                etat: 'En cours d\'examen'
-            })
+        await addDoc(collection(jobRef, idJob, 'candidats'), {
+            idCandidat: idUser,
+            nomCandidat: user.nom,
+            prenomCandidat: user.prenom,
+            emailCandidat: user.email,
+            telephoneCandidat: user.telephone,
+            urlCV: url,
+            etat: 'En cours d\'examen'
         })
 
         console.log("Le CV a était publié")
@@ -231,9 +232,14 @@ export async function addCV(CV: any, idJob: string, idUser: string){
 
 export async function getCVsByJob(idJob: string){
     try{
-        const jobs = doc(db, 'emplois', idJob)
-        const res = await getDoc(jobs)
-        return res.data()
+        let result: any[] = []
+        await getDocs(collection(jobRef, idJob, 'candidats')).then((snapshot) => {
+            snapshot.docs.map((candidat) => {
+                result.push({id: candidat.id, ...candidat.data()})
+            })
+        })
+
+        return result
     }
     catch(error){
         console.log(error)

@@ -12,9 +12,7 @@ const Candidatures: React.FC = () => {
     useEffect(() => {
         const fetchCandidatures = async () => {
             const res: any = await getCVsByJob(job.id)
-            setCandidatures(res.candidats)
-
-            
+            setCandidatures(res)
         }
 
         fetchCandidatures()
